@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="beige">#eade81</color>
+    <color name="colorPrimaryInverse">#550000</color>
+    <color name="colorPrimaryDarkInverse">#550000</color>
+    <color name="textColorPrimary">#803F88</color>
+    <color name="textColorPrimaryInverse">#966c37</color>
+
+    <color name="colorAccentInverse">#eade81</color>
+
+</resources>

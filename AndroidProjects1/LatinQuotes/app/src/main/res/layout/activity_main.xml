@@ -1,0 +1,89 @@
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:configChanges="orientation"
+
+    tools:context="com.oldworld.meena.latinquotes.MainActivity" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bgin"
+
+        />
+
+    <TextView
+        android:id="@+id/interpre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="16dp"
+        android:text="Affirmations"
+        android:textSize="20sp" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send"
+        android:layout_below="@id/interpre"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/gradient"
+        android:src="@drawable/send"
+        android:onClick="email"
+        />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/refresh"
+        android:layout_below="@id/interpre"
+        android:layout_toLeftOf="@id/send"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:onClick="randomquote"
+        android:background="@drawable/gradient"
+        android:src="@drawable/refresh"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Set daily alert"
+        android:background="@drawable/gradient"
+        android:singleLine="false"
+        android:textColor="#eade81"
+        android:id="@+id/startalarm"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Reset daily alert"
+        android:background="@drawable/gradient"
+        android:textColor="#eade81"
+        android:id="@+id/cancelalarm"
+        />
+    <TextView
+        android:id="@+id/alarmprompt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        />
+
+
+</RelativeLayout>
