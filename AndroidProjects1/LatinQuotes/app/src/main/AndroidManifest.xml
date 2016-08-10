@@ -20,7 +20,12 @@
         </activity>
         <receiver android:name=".AlarmReceiver" android:process=":remote" />
         <intentservice android:name="com.oldworld.meena.latinquotes.NotificationService"></intentservice>
-
+        <receiver android:name=".DeviceBootReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
