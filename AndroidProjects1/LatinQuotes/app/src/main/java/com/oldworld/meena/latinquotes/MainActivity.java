@@ -3,11 +3,15 @@ package com.oldworld.meena.latinquotes;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.LabeledIntent;
+import android.content.pm.ResolveInfo;
 import android.media.Ringtone;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +25,9 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -142,25 +148,52 @@ public class MainActivity extends AppCompatActivity {
             // Should never happen!
             throw new RuntimeException(e);
         }
-
-
-
-
     }
     public void email(View v) {
 
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("mailto:?subject="+"Latin quote for you "+"&body="+mailQuote)); // only email apps should handle this
-        //intent.putExtra(Intent.EXTRA_SUBJECT, "Just java order for " + ca_name);
-        //intent.putExtra(Intent.EXTRA_TEXT, priceMsg);
+        List<Intent> intentShareList = new ArrayList<Intent>();
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
 
-     /*   Intent intent = new Intent(Intent.ACTION_VIEW);
-        //intent.setData(Uri.parse("mailto:? subject="+"Just java order for " + ca_name+priceMsg + "&body=" + "blah blah body"  + "&to=" + "sendme@me.com")); // only email apps should handle this
-        intent.setData(Uri.parse("mailto:?subject=" + "blah blah subject" + "&body=" + "blah blah body" + "&to=" + "sendme@me.com"));*/
-        if(intent.resolveActivity(getPackageManager())!=null)
+        List<ResolveInfo> resolveInfoList = getPackageManager().queryIntentActivities(shareIntent, 0);
 
-        {
-            startActivity(intent);
+        for (ResolveInfo resInfo : resolveInfoList) {
+            String packageName = resInfo.activityInfo.packageName;
+            String name = resInfo.activityInfo.name;
+            Log.i("Email method", "Package Name : " + packageName);
+            Log.i("Email method", "Name : " + name);
+
+            if (/*packageName.contains("com.facebook") ||
+                    packageName.contains("com.twitter.android") ||
+                    packageName.contains("com.google.android.apps.plus") ||
+                    packageName.contains("com.google.android.gm") ||
+                    packageName.contains("com.whatsapp") ||*/
+                    packageName.contains("chat") ||
+                    packageName.contains("messenger") ||
+                    packageName.contains("email"))
+            {
+
+                if (name.contains("com.twitter.android.DMActivity")) {
+                    continue;
+                }
+
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(packageName, name));
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Your Quote for the day");
+                intent.putExtra(Intent.EXTRA_TEXT, mailQuote);
+                intentShareList.add(intent);
+            }
+        }
+
+        if (intentShareList.isEmpty()) {
+            Toast.makeText(MainActivity.this, "No apps to share !", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent chooserIntent = Intent.createChooser(intentShareList.remove(0), "Share via");
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentShareList.toArray(new Parcelable[]{}));
+            startActivity(chooserIntent);
         }
     }
 
@@ -266,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
 }
 
 //todo   <item name="android:textColorPrimary">@color/textColorPrimaryInverse</item>
-//todo broadcast receiver
+//
 /*<item name="android:textColorSecondary">@color/textColorSecondaryInverse</item>
 <item name="android:textColorPrimaryInverse">@color/textColorPrimary</item>
 <item name="android:textColorSecondaryInverse">@color/textColorSecondary</item>

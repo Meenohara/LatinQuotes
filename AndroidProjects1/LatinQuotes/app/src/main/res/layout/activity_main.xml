@@ -8,15 +8,15 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:configChanges="orientation"
+    android:configChanges="orientation|screenSize"
 
     tools:context="com.oldworld.meena.latinquotes.MainActivity" >
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bgin"
-
+        android:background="@drawable/bgpat"
+        android:alpha="0.5"
         />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_marginBottom="16dp"
         android:text="Affirmations"
         android:textSize="20sp" />
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/send"
@@ -38,10 +38,10 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_alignParentRight="true"
         android:background="@drawable/gradient"
-        android:src="@drawable/send"
+        android:text="Quote me!"
         android:onClick="email"
         />
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/refresh"
@@ -55,7 +55,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:onClick="randomquote"
         android:background="@drawable/gradient"
-        android:src="@drawable/refresh"
+        android:text="Another Quote"
         />
     <Button
         android:layout_width="wrap_content"
@@ -65,7 +65,6 @@
         android:text="Set daily alert"
         android:background="@drawable/gradient"
         android:singleLine="false"
-        android:textColor="#eade81"
         android:id="@+id/startalarm"
         />
     <Button
@@ -75,7 +74,6 @@
         android:layout_alignParentLeft="true"
         android:text="Reset daily alert"
         android:background="@drawable/gradient"
-        android:textColor="#eade81"
         android:id="@+id/cancelalarm"
         />
     <TextView
