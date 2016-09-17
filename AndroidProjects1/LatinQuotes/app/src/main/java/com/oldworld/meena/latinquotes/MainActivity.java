@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
 
         TextView affirm = (TextView)findViewById(R.id.interpre);
         randomquote(affirm);
-
-
+        String[] timearray;
 
         settings =  this.getSharedPreferences(PREFKEY, Context.MODE_PRIVATE);
         almtime= settings.getString(ALMTIME, almtime);
         textAlarmPrompt = (TextView) findViewById(R.id.alarmprompt);
-        textAlarmPrompt.setText( "Alarm time "
-                + almtime + "\n" + "***\n");
+        timearray = almtime.split("\\s");
+        /*textAlarmPrompt.setText( "Daily alert time "
+                +timearray[3]+ "hours" + "\n" + "***\n");*/
 
         buttonstartSetDialog = (Button) findViewById(R.id.startalarm);
         buttonstartSetDialog.setOnClickListener(new View.OnClickListener() {
@@ -135,11 +135,17 @@ public class MainActivity extends AppCompatActivity {
             StringBuilder strBuilder = new StringBuilder();
 
             TextView intp = (TextView) findViewById(R.id.interpre);
+            TextView engl = (TextView) findViewById(R.id.english);
+
             while ((line = fileReader.readLine()) != null) {
                 linenum++;
                 if (linenum == randomInteger) {
-                    intp.setText(line);
                     mailQuote=line;
+                    String[] str_array = line.split("\\-\\(Meaning\\)");
+                    String quote = str_array[0];
+                    String meaning = str_array[1];
+                    engl.setText(meaning);
+                    intp.setText(quote);
                 }
             }
 
@@ -155,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-
+//TODO try out android.intent.category.default in intent filter in Manifest file
         List<ResolveInfo> resolveInfoList = getPackageManager().queryIntentActivities(shareIntent, 0);
 
         for (ResolveInfo resInfo : resolveInfoList) {
@@ -164,11 +170,11 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Email method", "Package Name : " + packageName);
             Log.i("Email method", "Name : " + name);
 
-            if (/*packageName.contains("com.facebook") ||
+            if (packageName.contains("com.facebook") ||
                     packageName.contains("com.twitter.android") ||
                     packageName.contains("com.google.android.apps.plus") ||
                     packageName.contains("com.google.android.gm") ||
-                    packageName.contains("com.whatsapp") ||*/
+                    packageName.contains("com.whatsapp") ||
                     packageName.contains("chat") ||
                     packageName.contains("messenger") ||
                     packageName.contains("email"))
@@ -236,10 +242,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void setAlarm(Calendar targetCal) {
 
-        textAlarmPrompt.setText("\n\n***\n" + "Alarm is set "
-               + targetCal.getTime() + "\n" + "***\n");
+        String[] timearray;
 
         almtime = targetCal.getTime().toString();
+
+        timearray = almtime.split("\\s");
+
+
+       /* textAlarmPrompt.setText("\n\n***\n" + "Daily alert set at "
+                + timearray[3] + " hours" + "\n" + "***\n");
+*/
         long almstime =targetCal.getTimeInMillis();
 
         SharedPreferences.Editor editor = settings.edit();
@@ -290,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "No Alarm to cancel!", Toast.LENGTH_LONG).show();
         }
-        textAlarmPrompt.setText("Currently no alarm set");
+        textAlarmPrompt.setText("Currently no daily alert set");
 
     }
 

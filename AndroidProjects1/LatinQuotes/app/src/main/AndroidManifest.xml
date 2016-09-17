@@ -21,6 +21,7 @@
         </activity>
         <receiver android:name=".AlarmReceiver" android:process=":remote" />
         <intentservice android:name="com.oldworld.meena.latinquotes.NotificationService"></intentservice>
+        <!--static registration-->
         <receiver android:name=".DeviceBootReceiver"
             android:enabled="true">
             <intent-filter>
