@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
 //TODO try out android.intent.category.default in intent filter in Manifest file
+
         List<ResolveInfo> resolveInfoList = getPackageManager().queryIntentActivities(shareIntent, 0);
 
         for (ResolveInfo resInfo : resolveInfoList) {
@@ -310,10 +311,5 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-//todo   <item name="android:textColorPrimary">@color/textColorPrimaryInverse</item>
-//
-/*<item name="android:textColorSecondary">@color/textColorSecondaryInverse</item>
-<item name="android:textColorPrimaryInverse">@color/textColorPrimary</item>
-<item name="android:textColorSecondaryInverse">@color/textColorSecondary</item>
-
-<item name="android:background">@color/colorAccentInverse</item>*/
+//todo   app link in share method
+//todo 'about the app'
